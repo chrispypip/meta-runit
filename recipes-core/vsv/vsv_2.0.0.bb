@@ -9,7 +9,7 @@ inherit cargo
 # SRC_URI += "crate://crates.io/vsv/2.0.0"
 SRC_URI += "git://github.com/bahamas10/vsv.git;protocol=https;nobranch=1;branch=main"
 SRCREV = "33e5a27f9ded1f63bf2bd55d3bc5c9189c8b214f"
-S = "${WORKDIR}/git"
+S = "${UNPACKDIR}/git"
 CARGO_SRC_DIR = ""
 PV:append = ".AUTOINC+33e5a27f9d"
 
