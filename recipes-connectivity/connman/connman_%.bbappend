@@ -25,7 +25,7 @@ RUNIT_DEFAULT_MODS = "log"
 # One last thing, set up the gear-shifted config file so we can use
 # the right and desired wireless, etc. manager entries for our daemon...
 copy_connman_config(){
-    install -m 0644 ${S}/${WIFI_MANAGER}.config ${D}${sysconfdir}/sv/connman/config
+    install -m 0644 ${UNPACKDIR}/${WIFI_MANAGER}.config ${D}${sysconfdir}/sv/connman/config
 }
 do_install[postfuncs] += "${@bb.utils.contains('DISTRO_FEATURES', 'runit', 'copy_connman_config', '', d)} "
 

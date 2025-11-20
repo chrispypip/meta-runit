@@ -24,18 +24,18 @@ python __anonymous() {
 # and specfied at least as a directory (Preferably, each piece part in the
 # tree to support devtool properly)
 install_runit_services() {
-    if [ -d ${S}/core-services ] ; then
+    if [ -d ${UNPACKDIR}/core-services ] ; then
         # Ensure we have a proper core-services directory in the packaging...
         install -d ${D}${runit-coresvcsdir}
-        for I in ${S}/core-services/* ; do
+        for I in ${UNPACKDIR}/core-services/* ; do
             install -m 0755 $I ${D}/etc/runit/core-services
         done
     fi
 
-    if [ -d ${S}/sv ] ; then
+    if [ -d ${UNPACKDIR}/sv ] ; then
         # Ensure we've got a proper services directory in the packaging...
         install -d ${D}${runit-svcdir}
-        cp -rap --no-preserve=ownership ${S}/sv/* ${D}${runit-svcdir}
+        cp -rap --no-preserve=ownership ${UNPACKDIR}/sv/* ${D}${runit-svcdir}
         find ${D}${runit-svcdir} -name run -exec chmod u+x {} \; || true
         find ${D}${runit-svcdir} -name finish -exec chmod u+x {} \; || true
         find ${D}${runit-svcdir} -name check -exec chmod u+x {} \; || true

@@ -83,14 +83,14 @@ install_runit_initscripts() {
 	install -d -m 0755 ${D}/etc/runit
 	install -d -m 0755 ${D}/etc/runit/core-services
     install -d -m 0755 ${D}${sbindir}
-    install -m 0644 ${S}/00-volatiles ${D}/etc/default/volatiles
-	install -m 0755 ${S}/1 ${D}/etc/runit
-	install -m 0755 ${S}/2 ${D}/etc/runit
-	install -m 0755 ${S}/3 ${D}/etc/runit
-    install -m 0755 ${S}/functions ${D}/etc/runit
-    install -m 0755 ${S}/modules-load ${D}${sbindir}
-    install -m 0755 ${S}/shutdown ${D}${sbindir}
-    install -m 0755 ${S}/rsm ${D}${sbindir}
+    install -m 0644 ${UNPACKDIR}/00-volatiles ${D}/etc/default/volatiles
+	install -m 0755 ${UNPACKDIR}/1 ${D}/etc/runit
+	install -m 0755 ${UNPACKDIR}/2 ${D}/etc/runit
+	install -m 0755 ${UNPACKDIR}/3 ${D}/etc/runit
+    install -m 0755 ${UNPACKDIR}/functions ${D}/etc/runit
+    install -m 0755 ${UNPACKDIR}/modules-load ${D}${sbindir}
+    install -m 0755 ${UNPACKDIR}/shutdown ${D}${sbindir}
+    install -m 0755 ${UNPACKDIR}/rsm ${D}${sbindir}
 
     # Symlink a few things to one of the binaries that we just moved...
     # It's a multicall dispatch much like busybox is...
@@ -159,7 +159,7 @@ do_install[postfuncs] += "${@bb.utils.contains('DISTRO_FEATURES', 'runit', '${DO
 # Now, handle overriding the case where we have been told to use socklogd for things, and to quietly
 # shift gears to using it for syslog, etc...  There's a few /etc/sv entries we need to overwrite in the install...
 copy_socklogd_support() {
-        cp -rap --no-preserve=ownership ${S}/socklogd/sv/* ${D}${runit-svcdir}
+        cp -rap --no-preserve=ownership ${UNPACKDIR}/socklogd/sv/* ${D}${runit-svcdir}
         chmod u+x ${D}${runit-svcdir}/*/run
 }
 DO_SOCKLOGD_SUPPORT = "${@bb.utils.contains('DISTRO_FEATURES', 'socklogd', 'copy_socklogd_support', '', d)}"
